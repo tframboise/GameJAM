@@ -42,3 +42,8 @@ class Student(pygame.sprite.Sprite):
     def go_crazy(self):
         self.state = "crazy"
         self.image.fill(PURPLE)
+
+    def calm_down(self):
+        self.state = "calm"
+        self.image.fill((255, 100, 100))
+        self.time_to_go_crazy = pygame.time.get_ticks() + random.randint(5000, 15000)
