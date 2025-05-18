@@ -10,12 +10,14 @@ import random
 from settings import WIDTH, HEIGHT
 
 class Student(pygame.sprite.Sprite):
-
-    def __init__(self, pos, player):
+    def __init__(self, pos, player, game, chair_pos):
         super().__init__()
         self.player = player
+        self.game = game
         self.state = "calm"
-        self.speed = 2.5
+        self.speed = 1.8
+        self.chair_pos = pygame.Vector2(chair_pos)
+
         self.calm_sheet = pygame.image.load("assets/students.png").convert_alpha()
         self.crazy_sheet = pygame.image.load("assets/crazy_students.png").convert_alpha()
         self.frame_width = self.calm_sheet.get_width() // 4
@@ -25,6 +27,7 @@ class Student(pygame.sprite.Sprite):
             "calm": self.load_frames(self.calm_sheet),
             "crazy": self.load_frames(self.crazy_sheet)
         }
+
         self.direction = "down"
         self.frame = 0
         self.timer = 0
@@ -53,6 +56,13 @@ class Student(pygame.sprite.Sprite):
         if self.state == "calm":
             if now >= self.time_to_go_crazy:
                 self.go_crazy()
+            else:
+                direction_vector = self.chair_pos - pygame.Vector2(self.rect.center)
+                if direction_vector.length() > 1:
+                    direction_vector = direction_vector.normalize()
+                    self.rect.x += direction_vector.x * self.speed
+                    self.rect.y += direction_vector.y * self.speed
+
         elif self.state == "crazy":
             direction_vector = pygame.Vector2(
                 self.player.rect.centerx - self.rect.centerx,
@@ -81,4 +91,4 @@ class Student(pygame.sprite.Sprite):
 
     def calm_down(self):
         self.state = "calm"
-        self.time_to_go_crazy = pygame.time.get_ticks() + random.randint(5000, 15000)
+        self.time_to_go_crazy = pygame.time.get_ticks() + random.randint(6000, 12000)

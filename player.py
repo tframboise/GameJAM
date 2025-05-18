@@ -53,13 +53,13 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_LEFT] or keys[pygame.K_q]:
             dx = -self.speed
             self.direction = "left"
-        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             dx = self.speed
             self.direction = "right"
-        elif keys[pygame.K_UP] or keys[pygame.K_z]:
+        if keys[pygame.K_UP] or keys[pygame.K_z]:
             dy = -self.speed
             self.direction = "up"
-        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             dy = self.speed
             self.direction = "down"
 
