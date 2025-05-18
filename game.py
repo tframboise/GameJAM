@@ -28,7 +28,7 @@ class Game:
         self.collected_gems = 0
         self.next_gem_spawn = pygame.time.get_ticks() + 5000
 
-        for _ in range(8):
+        for _ in range(5):
             pos = (random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50))
             student = Student(pos, self.player)
             self.students.add(student)
